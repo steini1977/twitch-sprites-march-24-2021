@@ -1,4 +1,4 @@
-rem multi color sprite
+rem multi color sprite 12 x 21 bits. 63 bytes
 rem remember when you edit mutisprite, jump pair.
 10 print chr$(147);:rem clear the scren
 20 print "x*z":rem shift+q
