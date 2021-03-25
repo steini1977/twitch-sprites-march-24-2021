@@ -1,0 +1,51 @@
+rem single color sprites 24x21 bits
+rem 63 bytes
+10 print chr$(147);:rem clear the scren
+20 print "Q";:rem shift+q
+30 for y=1 to 21
+35 for x=1 to 24
+40 poke 1024+x+11+40*y,45
+45 next x
+50 print y+60" print"+chr$(34)
+55 next y
+60 print chr$(147);"Q";:rem ball
+61 print" QQ                    QQ"
+62 print" -QQQQQQQQQQQQQQQQQQQQQQ-"
+63 print" --QQQQQQ   QQ   QQQQQQ--"
+64 print" ---QQQQ    QQ    QQQQ---"
+65 print" ----QQQQQQQQQQQQQQQQ----"
+66 print" -----QQQQQQQQQQQQQQ-----"
+67 print" ------QQQQQQQQQQQQ------"
+68 print" -------QQQ    QQQ-------"
+69 print" --------QQQQQQQQ--------"
+70 print" ----------QQQQ----------"
+71 print" ----------QQQQ----------"
+72 print" ----------QQQQ----------"
+73 print" ----------QQQQ----------"
+74 print" ----------QQQQ----------"
+75 print" ----------QQQQ----------"
+76 print" ----------QQQQ----------"
+77 print" ----------QQQQ----------"
+78 print" ----------QQQQ----------"
+79 print" ----------QQQQ----------"
+80 print" ------QQQQQQQQQQQ-------"
+81 print" ----QQQQQQQQQQQQQQQ-----"
+100 use=peek(1024)
+105 bit=7:dim sprite(64):cnt=0
+110 for y=1 to 21
+115 for x=1 to 24
+120 if peek(1024+x+40*y)<> use then 140
+125 sprite(cnt)=sprite(cnt)+2^bit
+140 bit=bit-1
+145 if bit<0 then cnt=cnt+1:bit=7
+150 next x:next y
+200 rem export data to mem 832 cass.buf
+205 for cnt=0 to 62:rem 63 data
+210 poke 832+cnt,sprt(cnt):next
+300 rem sprite
+305 poke 2040,13:rem pnt to 832(64*13)
+306 rem 53248+0 x, 53248+1,y
+310 poke 53248+0,150:poke 53248+1,127
+315 poke 53248+21,1:rem spr on/of
+320 poke 53248+23,1:rem dbl hight
+325 poke 53248+29,1:rem dbl width

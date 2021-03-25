@@ -1,0 +1,60 @@
+rem multi color sprite
+rem remember when you edit mutisprite, jump pair.
+10 print chr$(147);:rem clear the scren
+20 print "x*z":rem shift+q
+30 for y=1 to 21
+35 for x=1 to 24
+40 poke 1024+x+11+40*y,45
+45 next x
+50 print y+60" print"+chr$(34)
+55 next y
+60 print chr$(147);"x*z"
+61 print" xxzzzz**zzzzzzzzzzzzxx--
+62 print" xxzzzz****zzzzzzzzzzxx--
+63 print" --xxzzzz****zzzzzzxx----
+64 print" --xxzzzzzz**zzzzzzxx----
+65 print" ----xxzzzzzz**zzxx------
+66 print" ----xxzzzzzzzzzzxx------
+67 print" ------xxzzzzzzxx--------
+68 print" ------xxzzzzzzxx--------
+69 print" --------xxzzxx----------
+70 print" ----------xx------------
+71 print" ----------xx------------
+72 print" ----------xx------------
+73 print" --------- xx------------
+74 print" ----------xx------------
+75 print" ----------xx------------
+76 print" ----------xx------------
+77 print" ----------xx------------
+78 print" ----------xx------------
+79 print" --------xxxxxx----------
+80 print" ------xxxxxxxxxx--------
+81 print" ----xxxxxxxxxxxxxx------
+100 u1=peek(1024)
+101 u2=peek(1025)
+102 u3=peek(1026)
+105 bit=7:dim spr(64):cnt=0
+110 for y=1 to 21
+115 for x=1 to 24 step 2
+120 if peek(1024+x+40*y)<>u1 then 126
+125 spr(cnt)=spr(cnt)+2^bit
+126 if peek(1024+x+40*y)<>u2 then 136
+130 spr(cnt)=spr(cnt)+2^(bit-1)
+136 if peek(1024+x+40*y)<>u3 then 140
+137 spr(cnt)=spr(cnt)+2^bit
+138 spr(cnt)=spr(cnt)+2^(bit-1)
+140 bit=bit-2
+145 if bit<0 then cnt=cnt+1:bit=7
+150 next x:next y
+200 rem export data to mem 832 cass.buf
+205 for cnt=0 to 62
+210 poke 832+cnt,spr(cnt):next
+300 rem sprite
+305 poke 2040,13:rem pnt to 832(64*13)
+306 rem 53248+0 x, 53248+1,y
+310 poke 53248+0,150:poke 53248+1,127
+315 poke 53248+21,1:rem spr on/of
+320 poke 53248+23,1:rem dbl hight
+325 poke 53248+29,1:rem dbl width
+330 poke 53248+28,1:rem multicol on off
+
