@@ -35,10 +35,12 @@ rem remember when you edit mutisprite, jump pair.
 102 u3=peek(1026)
 105 bit=7:dim spr(64):cnt=0
 110 for y=1 to 21
+
 115 for x=1 to 24 step 2
-120 if peek(1024+x+40*y)<>u1 then 126
+120 if peek(1024+x+40*y)<>u1 then 127
 125 spr(cnt)=spr(cnt)+2^bit
-126 if peek(1024+x+40*y)<>u2 then 136
+126 goto 140
+127 if peek(1024+x+40*y)<>u2 then 136
 130 spr(cnt)=spr(cnt)+2^(bit-1)
 136 if peek(1024+x+40*y)<>u3 then 140
 137 spr(cnt)=spr(cnt)+2^bit
